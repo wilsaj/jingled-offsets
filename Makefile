@@ -1,6 +1,7 @@
-REC := rec-stereo-duration.ck
+REC := misc/rec-stereo-duration.ck
 
 .PHONY: chucks
+
 
 all: chucks
 
@@ -20,10 +21,11 @@ mp3/%.mp3: wav/%.wav
 	lame --preset 320 $< $@
 
 
-wav/waking_from_a_dream_about_an_untimely_lack_of_fresh_laundry.wav: waking_from_a_dream_about_an_untimely_lack_of_fresh_laundry.ck
+wav/waking_from_a_dream_about_an_untimely_lack_of_fresh_laundry.wav: chuck/waking_from_a_dream_about_an_untimely_lack_of_fresh_laundry.ck
 	mkdir -p $(dir $@)
 	chuck $< ${REC}:$@:30
 
-wav/a_mustard_salesman_visits_the_circus.wav: a_mustard_salesman_visits_the_circus.ck
+
+wav/a_mustard_salesman_visits_the_circus.wav: chuck/a_mustard_salesman_visits_the_circus.ck
 	mkdir -p $(dir $@)
 	chuck $< ${REC}:$@:30
