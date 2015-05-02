@@ -1,17 +1,18 @@
-REC_AUTO := tmp/rec-auto.ck
-REC := tmp/rec.ck
+REC := rec-stereo-duration.ck
 
-all: mp3/waking_from_a_dream_about_an_untimely_lack_of_fresh_laundry.mp3
+.PHONY: chucks
+
+all: chucks
+
+
+chucks: \
+	mp3/waking_from_a_dream_about_an_untimely_lack_of_fresh_laundry.mp3 \
+	mp3/a_mustard_salesman_visits_the_circus.mp3
+
 
 clean:
 	rm -rf mp3/*
 	rm -rf wav/*
-
-
-${REC}:
-	mkdir -p $(dir $@)
-	curl 'http://chuck.cs.princeton.edu/doc/examples/basic/rec.ck' -o $@.download
-	mv $@.download $@
 
 
 mp3/%.mp3: wav/%.wav
@@ -19,7 +20,10 @@ mp3/%.mp3: wav/%.wav
 	lame --preset 320 $< $@
 
 
-# kinda jank, don't work great
-wav/%.wav: %.ck ${REC}
+wav/waking_from_a_dream_about_an_untimely_lack_of_fresh_laundry.wav: waking_from_a_dream_about_an_untimely_lack_of_fresh_laundry.ck
 	mkdir -p $(dir $@)
-	chuck $< ${REC}:$@
+	chuck $< ${REC}:$@:30
+
+wav/a_mustard_salesman_visits_the_circus.wav: a_mustard_salesman_visits_the_circus.ck
+	mkdir -p $(dir $@)
+	chuck $< ${REC}:$@:30
